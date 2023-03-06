@@ -1,9 +1,9 @@
-import { displayCheck } from "./checkbox";
+import { displayCheck } from './checkbox';
 
-export const tasksArray = JSON.parse(localStorage.getItem("tasksArray")) || [];
+export const tasksArray = JSON.parse(localStorage.getItem('tasksArray')) || [];
 
 export const saveToLocalStorage = () => {
-  localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+  localStorage.setItem('tasksArray', JSON.stringify(tasksArray));
 };
 
 const sortTasks = () => {
@@ -17,22 +17,22 @@ const updadeIds = () => {
 };
 
 export const displayTasks = () => {
-  const todoList = document.querySelector(".todo-list");
-  todoList.innerHTML = "";
+  const todoList = document.querySelector('.todo-list');
+  todoList.innerHTML = '';
   tasksArray.forEach((task) => {
     todoList.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `
       <li class="task-li" id ="task-${task.index}">
           <input type="checkbox" class="task-checker" ${
-            task.completed && "checked"
-          }>
+  task.completed && 'checked'
+}>
           <input type="text" class="task-input" value="${task.description}">
           <button class="task-btn">
             <i class="fa-solid fa-ellipsis-vertical task-btn__icon"></i>
             <i class="fa-solid fa-trash-can task-btn__icon icon-hidden delete-task__button"></i>
           </button>
-      </li>`
+      </li>`,
     );
     const taskLi = document.querySelector(`#task-${task.index}`);
     displayCheck(taskLi, task);
@@ -42,18 +42,17 @@ export const displayTasks = () => {
 const toggleIcon = (btn) => {
   const toggleBtnIcon = (taskBtn) => {
     taskBtn
-      .querySelectorAll(".task-btn__icon")
-      .forEach((icon) => icon.classList.toggle("icon-hidden"));
-    taskBtn.style.cursor =
-      taskBtn.style.cursor === "pointer" ? "move" : "pointer";
+      .querySelectorAll('.task-btn__icon')
+      .forEach((icon) => icon.classList.toggle('icon-hidden'));
+    taskBtn.style.cursor = taskBtn.style.cursor === 'pointer' ? 'move' : 'pointer';
   };
-  document.querySelectorAll(".task-btn").forEach((taskBtn) => {
+  document.querySelectorAll('.task-btn').forEach((taskBtn) => {
     if (taskBtn === btn) {
       toggleBtnIcon(taskBtn);
     } else if (
       taskBtn
-        .querySelectorAll(".task-btn__icon")[0]
-        .classList.contains("icon-hidden")
+        .querySelectorAll('.task-btn__icon')[0]
+        .classList.contains('icon-hidden')
     ) {
       toggleBtnIcon(taskBtn);
     }
@@ -61,18 +60,18 @@ const toggleIcon = (btn) => {
 };
 
 const unfocusTask = (taskLi) => {
-  const taskBtn = taskLi.querySelector(".task-btn");
+  const taskBtn = taskLi.querySelector('.task-btn');
   toggleIcon(taskBtn);
-  taskBtn.style.cursor = "move";
-  taskLi.style.backgroundColor = "white";
+  taskBtn.style.cursor = 'move';
+  taskLi.style.backgroundColor = 'white';
 };
 
 export const focusTask = (btn = null) => {
   toggleIcon(btn);
-  document.querySelectorAll(".task-li").forEach((taskLi) => {
-    if (taskLi === btn.closest(".task-li")) {
-      taskLi.style.backgroundColor = "#d3d3d3";
-    } else taskLi.style.backgroundColor = "white";
+  document.querySelectorAll('.task-li').forEach((taskLi) => {
+    if (taskLi === btn.closest('.task-li')) {
+      taskLi.style.backgroundColor = '#d3d3d3';
+    } else taskLi.style.backgroundColor = 'white';
   });
 };
 
@@ -98,9 +97,9 @@ export const removeTask = (task) => {
 };
 
 export const EditTask = (taskInput) => {
-  const taskLi = taskInput.closest(".task-li");
+  const taskLi = taskInput.closest('.task-li');
   const task = tasksArray.find(
-    (task) => task.index === +taskLi.id.split("-")[1]
+    (task) => task.index === +taskLi.id.split('-')[1],
   );
   task.description = taskInput.value;
   saveToLocalStorage();
